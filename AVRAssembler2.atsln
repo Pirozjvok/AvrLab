@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "AVRAssembler2", "AVRAssembler2\AVRAssembler2.asmproj", "{0A7585BF-86FF-4C2A-9ECE-96331C24AB40}"
+EndProject
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Task8", "Task8\Task8.asmproj", "{675EB03A-A380-4D43-9891-C46619B3CC18}"
+EndProject
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Task9", "Task9\Task9.asmproj", "{859B5375-36E0-4A79-B8A8-FC156515A0A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A7585BF-86FF-4C2A-9ECE-96331C24AB40}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0A7585BF-86FF-4C2A-9ECE-96331C24AB40}.Debug|AVR.Build.0 = Debug|AVR
+		{0A7585BF-86FF-4C2A-9ECE-96331C24AB40}.Release|AVR.ActiveCfg = Release|AVR
+		{0A7585BF-86FF-4C2A-9ECE-96331C24AB40}.Release|AVR.Build.0 = Release|AVR
+		{675EB03A-A380-4D43-9891-C46619B3CC18}.Debug|AVR.ActiveCfg = Debug|AVR
+		{675EB03A-A380-4D43-9891-C46619B3CC18}.Debug|AVR.Build.0 = Debug|AVR
+		{675EB03A-A380-4D43-9891-C46619B3CC18}.Release|AVR.ActiveCfg = Release|AVR
+		{675EB03A-A380-4D43-9891-C46619B3CC18}.Release|AVR.Build.0 = Release|AVR
+		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Debug|AVR.ActiveCfg = Debug|AVR
+		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Debug|AVR.Build.0 = Debug|AVR
+		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Release|AVR.ActiveCfg = Release|AVR
+		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
