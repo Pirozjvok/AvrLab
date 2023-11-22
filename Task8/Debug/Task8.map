@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Tue Nov 21 12:43:09 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Wed Nov 22 17:21:14 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1365,13 +1365,13 @@ DEF  dir          r18
 DEF  inv          r19
 DEF  rab          r20
 CSEG reset        00000005
-CSEG handle_pd2   0000002a
-CSEG handle_pd3   00000033
-CSEG main         00000016
-CSEG m3           00000021
-CSEG m1           00000018
-CSEG m2           00000019
-CSEG delay        0000003c
-CSEG m4           00000022
-CSEG d0           0000003d
-CSEG d2           0000003e
+CSEG handle_pd2   00000028
+CSEG handle_pd3   00000031
+CSEG main         00000014
+CSEG m3           0000001f
+CSEG m1           00000016
+CSEG m2           00000017
+CSEG delay        0000003a
+CSEG m4           00000020
+CSEG d0           0000003b
+CSEG d2           0000003c

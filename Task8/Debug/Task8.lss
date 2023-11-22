@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Tue Nov 21 12:43:09 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Wed Nov 22 17:21:14 2023
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
 C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
@@ -1894,25 +1894,27 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Includ
 000000 c004       rjmp reset
                  
                   .org INT0addr 
-000002 c027      	rjmp handle_pd2
+000002 c025      	rjmp handle_pd2
                  
                   .org INT1addr
-000004 c02e      	rjmp handle_pd3
+000004 c02c      	rjmp handle_pd3
                  
                   reset: ;Подпрограмма в которой мы инизицализируем все
+                 
                  	;; Настраиваем прерывания
-000005 e00f      	ldi temp, (1<<ISC00) | (1<<ISC01) | (1<<ISC10) | (1<<ISC11) ; Заносим флаги настроек прерываний
-000006 9300 0069 	sts EICRA, temp ; Устанавливаем прерывание по восходящему фронту
+000005 e00a      	ldi temp, (1<<ISC01) | (1<<ISC11) ; Заносим флаги настроек прерываний по нисходящему фронту
+000006 9300 0069 	sts EICRA, temp ; Заносим эти флаги в регистр EICRA
                  
-000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Запихиваем в temp значение 0x00000011
-000009 bb0d      	out EIMSK, temp
-                 
+                 	;; Разрешаем прерывания
+000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Заносим флаги резрешения прерываний INT0 и INT1
+000009 bb0d      	out EIMSK, temp ; Заносим эти флаги в регистр EIMSK
+00000a 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
                  
                  	;; Настраиваем стек
-00000a ef0f      	ldi	temp,LOW(RAMEND)  ; Загружаем младший байт константы RAMEND в регистр r16
-00000b bf0d      	out	SPL,temp			 ; Загружаем значение из регистра r16 в регистр SPL
-00000c e201      	ldi	temp,HIGH(RAMEND) ; Загружаем старший байт константы RAMEND в регистр r16
-00000d bf0e      	out	SPH,temp			 ; Загружаем значение из регистра r16 в регистр SPH
+00000b ef0f      	ldi	temp,LOW(RAMEND)  ; Загружаем младший байт константы RAMEND в регистр r16
+00000c bf0d      	out	SPL,temp			 ; Загружаем значение из регистра r16 в регистр SPL
+00000d e201      	ldi	temp,HIGH(RAMEND) ; Загружаем старший байт константы RAMEND в регистр r16
+00000e bf0e      	out	SPH,temp			 ; Загружаем значение из регистра r16 в регистр SPH
                  	/* 
                  		Короче для того чтобы задать вершину стека нужно установить его адреc
                  		в двух 8-битных регистрах
@@ -1926,77 +1928,74 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Includ
                  
                  	;Настраиваем выводы
                  	
-00000e 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
-00000f b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход
-000010 b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход
+00000f 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
+000010 b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход, это для кнопок
                  
 000011 ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
-000012 ef0f      	ldi temp, 0xFF
-000013 b904      	out DDRB, temp ; Устанавливаем все пины порта B на выход
-000014 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы
-000015 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
+000012 b90b      	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
+000013 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
                  
                   main:
-000016 fd20      	sbrc dir, 0
-000017 c009      	rjmp m3
+000014 fd20      	sbrc dir, 0
+000015 c009      	rjmp m3
                  
                  ; ------- Сдвиг вправо -----------
                  m1: 
-000018 e840      	ldi rab, 0b10000000
+000016 e840      	ldi rab, 0b10000000
                  m2:
-000019 ef0f      	ldi temp, 0xFF
-00001a fd30      	sbrc inv, 0
-00001b 2704      	eor temp, rab
-00001c b945      	out PORTB, rab
-00001d d01e      	rcall delay
-00001e 9546      	lsr rab
-00001f f7c8      	brcc m2
-000020 cff5      	rjmp main
+000017 ef0f      	ldi temp, 0xFF
+000018 fd30      	sbrc inv, 0
+000019 2704      	eor temp, rab
+00001a b942      	out PORTA, rab
+00001b d01e      	rcall delay
+00001c 9546      	lsr rab
+00001d f7c8      	brcc m2
+00001e cff5      	rjmp main
                  
                  	; ------- Сдвиг влево -----------
                  m3: 
-000021 e041      	ldi rab, 0b00000001
+00001f e041      	ldi rab, 0b00000001
                  m4:
-000022 ef0f      	ldi temp, 0xFF
-000023 fd30      	sbrc inv, 0
-000024 2704      	eor temp, rab
-000025 b945      	out PORTB, rab
-000026 d015      	rcall delay
-000027 9546      	lsr rab
-000028 f7c8      	brcc m4
-000029 cfec      	rjmp main
+000020 ef0f      	ldi temp, 0xFF
+000021 fd30      	sbrc inv, 0
+000022 2704      	eor temp, rab
+000023 b942      	out PORTA, rab
+000024 d015      	rcall delay
+000025 9546      	lsr rab
+000026 f7c8      	brcc m4
+000027 cfec      	rjmp main
                  
                  handle_pd2:
+000028 930f      	push temp
+000029 b70f      	in temp, SREG
 00002a 930f      	push temp
-00002b b70f      	in temp, SREG
-00002c 930f      	push temp
-00002d ef0f      	ldi temp, 0xFF
-00002e 2720      	eor dir, temp
+00002b ef0f      	ldi temp, 0xFF
+00002c 2720      	eor dir, temp
+00002d 910f      	pop temp
+00002e bf0f      	out SREG, temp
 00002f 910f      	pop temp
-000030 bf0f      	out SREG, temp
-000031 910f      	pop temp
-000032 9518      	reti ; Выходим из прерывания
+000030 9518      	reti ; Выходим из прерывания
                  
                  handle_pd3:
+000031 930f      	push temp
+000032 b70f      	in temp, SREG
 000033 930f      	push temp
-000034 b70f      	in temp, SREG
-000035 930f      	push temp
-000036 ef0f      	ldi temp, 0xFF
-000037 2730      	eor inv, temp
+000034 ef0f      	ldi temp, 0xFF
+000035 2730      	eor inv, temp
+000036 910f      	pop temp
+000037 bf0f      	out SREG, temp
 000038 910f      	pop temp
-000039 bf0f      	out SREG, temp
-00003a 910f      	pop temp
-00003b 9518      	reti ; Выходим из прерывания
+000039 9518      	reti ; Выходим из прерывания
                  
                  delay: ; Задержка
-00003c ef0f      	ldi temp, 0xFF
+00003a ef0f      	ldi temp, 0xFF
                  	d0:
-00003d ef1f      		ldi temp2, 0xFF
+00003b ef1f      		ldi temp2, 0xFF
                  	d2:
-00003e 951a      		dec temp2
-00003f f7f1      	brne d2
-000040 950a      	dec temp
-000041 f7d9      	brne d0
+00003c 951a      		dec temp2
+00003d f7f1      	brne d2
+00003e 950a      	dec temp
+00003f f7d9      	brne d0
 
 
 RESOURCE USE INFORMATION
@@ -2016,7 +2015,7 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  37 r17:   2 r18:   2 r19:   3 r20:   8 r21:   0 r22:   0 r23:   0 
+r16:  35 r17:   2 r18:   2 r19:   3 r20:   8 r21:   0 r22:   0 r23:   0 
 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
 x  :   0 y  :   0 z  :   0 
 Registers used: 5 out of 35 (14.3%)
@@ -2032,10 +2031,10 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   2 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   4 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  13 
+in    :   2 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  12 
 lds   :   0 lpm   :   0 lsl   :   0 lsr   :   2 mov   :   0 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   0 out   :  11 pop   :   4 push  :   4 rcall :   2 ret   :   1 
+ori   :   0 out   :  10 pop   :   4 push  :   4 rcall :   2 ret   :   1 
 reti  :   2 rjmp  :   6 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   3 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1 
@@ -2047,7 +2046,7 @@ Instructions used: 19 out of 116 (16.4%)
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000086    130      0    130  262144   0.0%
+[.cseg] 0x000000 0x000082    126      0    126  262144   0.0%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm Tue Nov 21 12:52:36 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm Wed Nov 22 17:21:14 2023
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
 C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm(1): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
                  
-                  .include "m2560def.inc"
+                 .include "m2560def.inc"
                  
                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega2560.xml **********
                  ;*************************************************************************
@@ -1885,34 +1885,36 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm(1): Includ
                  #endif  /* _M2560DEF_INC_ */
                  
                  ; ***** END OF FILE ******************************************************
-                  .def temp = r16
-                  .def temp2 = r17
-                  .def dir = r18
-                  .def inv = r19
-                  .def rab = r20
+                 .def temp = r16
+                 .def temp2 = r17
+                 .def dir = r18
+                 .def inv = r19
+                 .def rab = r20
                  
-000000 c004       rjmp reset
+000000 c004      rjmp reset
                  
-                  .org INT0addr 
+                 .org INT0addr 
 000002 c014      	rjmp handle_pd2
                  
-                  .org INT1addr
+                 .org INT1addr
 000004 c01f      	rjmp handle_pd3
                  
-                  reset: ;Подпрограмма в которой мы инизицализируем все
+                 reset: ;Подпрограмма в которой мы инизицализируем все
+                 
                  	;; Настраиваем прерывания
-000005 e00f      	ldi temp, (1<<ISC00) | (1<<ISC01) | (1<<ISC10) | (1<<ISC11) ; Заносим флаги настроек прерываний
-000006 9300 0069 	sts EICRA, temp ; Устанавливаем прерывание по восходящему фронту
+000005 e00a      	ldi temp, (1<<ISC01) | (1<<ISC11) ; Заносим флаги настроек прерываний по нисходящему фронту
+000006 9300 0069 	sts EICRA, temp ; Заносим эти флаги в регистр EICRA
                  
-000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Запихиваем в temp значение 0x00000011
-000009 bb0d      	out EIMSK, temp
-                 
-                 
+                 	;; Разрешаем прерывания
+000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Заносим флаги резрешения прерываний INT0 и INT1
+000009 bb0d      	out EIMSK, temp ; Заносим эти флаги в регистр EIMSK
+00000a 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
+                 	
                  	;; Настраиваем стек
-00000a ef0f      	ldi	temp,LOW(RAMEND)  ; Загружаем младший байт константы RAMEND в регистр r16
-00000b bf0d      	out	SPL,temp			 ; Загружаем значение из регистра r16 в регистр SPL
-00000c e201      	ldi	temp,HIGH(RAMEND) ; Загружаем старший байт константы RAMEND в регистр r16
-00000d bf0e      	out	SPH,temp			 ; Загружаем значение из регистра r16 в регистр SPH
+00000b ef0f      	ldi	temp,LOW(RAMEND)  ; Загружаем младший байт константы RAMEND в регистр r16
+00000c bf0d      	out	SPL,temp			 ; Загружаем значение из регистра r16 в регистр SPL
+00000d e201      	ldi	temp,HIGH(RAMEND) ; Загружаем старший байт константы RAMEND в регистр r16
+00000e bf0e      	out	SPH,temp			 ; Загружаем значение из регистра r16 в регистр SPH
                  	/* 
                  		Короче для того чтобы задать вершину стека нужно установить его адреc
                  		в двух 8-битных регистрах
@@ -1926,17 +1928,16 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm(1): Includ
                  
                  	;Настраиваем выводы
                  	
-00000e 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
-00000f b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход
-000010 b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход
+00000f 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
+000010 b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход, это для кнопок
+000011 b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход, это для переключателей
                  
-000011 ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
-000012 ef0f      	ldi temp, 0xFF
-000013 b904      	out DDRB, temp ; Устанавливаем все пины порта B на выход
-000014 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы
-000015 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
+000012 ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
+000013 b90b      	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
+000014 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы для переключателей
+000015 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
                  
-                  main:
+                 main:
 000016 cfff      	rjmp main
                  
                  handle_pd2:
@@ -1947,7 +1948,7 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm(1): Includ
 00001b b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
 00001c e014      	ldi temp2, 0x04
 00001d 9f01      	mul temp, temp2
-00001e b905      	out PORTB, temp
+00001e b902      	out PORTA, temp
 00001f 911f      	pop temp2
 000020 910f      	pop temp
 000021 bf0f      	out SREG, temp
@@ -1959,7 +1960,7 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm(1): Includ
 000025 b70f      	in temp, SREG
 000026 930f      	push temp
 000027 b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
-000028 b905      	out PORTB, temp
+000028 b902      	out PORTA, temp
 000029 910f      	pop temp
 00002a bf0f      	out SREG, temp
 00002b 910f      	pop temp
@@ -1998,10 +1999,10 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :   6 
+in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :   5 
 lds   :   0 lpm   :   0 lsl   :   0 lsr   :   0 mov   :   0 movw  :   0 
 mul   :   1 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   0 out   :  11 pop   :   5 push  :   5 rcall :   0 ret   :   0 
+ori   :   0 out   :  12 pop   :   5 push  :   5 rcall :   0 ret   :   0 
 reti  :   2 rjmp  :   4 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1 

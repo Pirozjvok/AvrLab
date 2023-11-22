@@ -21,8 +21,8 @@
  </OUTPUT_FILES>
  <LABELS>
   <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>16</LINE></reset>
-  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>56</LINE></handle_pd2>
-  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>71</LINE></handle_pd3>
-  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>53</LINE></main>
+  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>57</LINE></handle_pd2>
+  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>72</LINE></handle_pd3>
+  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task9\Task9.asm</FILE><LINE>54</LINE></main>
  </LABELS>
 </ASSEMBLER_INFO>

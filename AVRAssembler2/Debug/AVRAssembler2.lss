@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\AVRAssembler2\AVRAssembler2.asm Tue Nov 21 12:43:09 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\AVRAssembler2\AVRAssembler2.asm Wed Nov 22 17:21:14 2023
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
 C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\AVRAssembler2\AVRAssembler2.asm(1): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
@@ -1890,34 +1890,38 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\AVRAssembler2\AVRAssembler
                   
 000000 c004       rjmp reset
                  
+                  ; Задаем обработчик прервывния INT0
                   .org INT0addr 
 000002 c011      	rjmp handle_pd2
                  
+                 ; Задаем обработчик прервывния INT1
                   .org INT1addr
 000004 c012      	rjmp handle_pd3
                  
                   reset: ;Подпрограмма в которой мы инизицализируем все
+                 
                  	;; Настраиваем прерывания
-000005 e00f      	ldi temp, (1<<ISC00) | (1<<ISC01) | (1<<ISC10) | (1<<ISC11) ; Заносим флаги настроек прерываний
-000006 9300 0069 	sts EICRA, temp ; Устанавливаем прерывание по восходящему фронту
+000005 e00a      	ldi temp, (1<<ISC01) | (1<<ISC11) ; Заносим флаги настроек прерываний по нисходящему фронту
+000006 9300 0069 	sts EICRA, temp ; Заносим эти флаги в регистр EICRA
                  
-000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Запихиваем в temp значение 0x00000011
-000009 bb0d      	out EIMSK, temp
-                 
+                 	;; Разрешаем прерывания
+000008 e003      	ldi temp, (1<<INT0) | (1<<INT1) ; Заносим флаги резрешения прерываний INT0 и INT1
+000009 bb0d      	out EIMSK, temp ; Заносим эти флаги в регистр EIMSK
+00000a 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
+                 	
                  	;Настраиваем выводы
                  	
-00000a 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
-00000b b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход
-00000c b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход
+00000b 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
+00000c b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход, это для кнопок
+00000d b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход, это для переключателей
                  
-00000d ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
-00000e ef0f      	ldi temp, 0xFF
-00000f b904      	out DDRB, temp ; Устанавливаем все пины порта B на выход
-000010 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы
-000011 9478      	sei ; Разрешаем все прерывания, установка 7 разряда регистра SREG в 1
+00000e ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
+00000f b90b      	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
+000010 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы для переключателей
+000011 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
                  
                   main:
-000012 b905      	out PORTB, temp
+000012 b902       	out PORTA, temp
 000013 cffe      	rjmp main
                  
                  handle_pd2:
@@ -1962,10 +1966,10 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   0 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :   3 
+in    :   1 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :   2 
 lds   :   0 lpm   :   0 lsl   :   0 lsr   :   0 mov   :   0 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   0 out   :   6 pop   :   0 push  :   0 rcall :   0 ret   :   0 
+ori   :   0 out   :   7 pop   :   0 push  :   0 rcall :   0 ret   :   0 
 reti  :   2 rjmp  :   4 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   0 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   2 
