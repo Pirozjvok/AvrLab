@@ -1,9 +1,8 @@
  .include "m2560def.inc"
  .def temp = r16
  .def temp2 = r17
- .def dir = r18
- .def inv = r19
- .def rab = r20
+ .def rab = r18
+ .def start = r19
 
  rjmp reset
 
@@ -45,46 +44,45 @@
 	clr temp ; Устанавливаем все биты регистра r16 на 0
 	out DDRD, temp ; Устанавливаем все выводы порта D на вход, это для кнопок
 
+	ser start
 	ser temp ; Устанавливаем все биты регистра r16 на 1
 	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
 	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
 
  main:
-	sbrc dir, 0
-	rjmp m3
+	sbrc start, 0
+	rjmp main
 
 ; ------- Сдвиг вправо -----------
 m1: 
 	ldi rab, 0b10000000
 m2:
 	ldi temp, 0xFF
-	sbrc inv, 0
-	eor temp, rab
 	out PORTA, rab
 	rcall delay
 	lsr rab
 	brcc m2
-	rjmp main
-
-	; ------- Сдвиг влево -----------
-m3: 
-	ldi rab, 0b00000001
+	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
+	clr temp2 ; Очищаем temp2
+	cp temp, start ; Сравниваем с 0, т.к start на данный момент обнулен
+	breq m4 ; Если 0 то переходим в m4
+	ldi temp2, 0x01 ; Загружаем еденицу в регистр temp2
+m3:
+	lsl temp2
+	dec temp
+	brne m3
+	dec temp2
 m4:
-	ldi temp, 0xFF
-	sbrc inv, 0
-	eor temp, rab
-	out PORTA, rab
-	rcall delay
-	lsl rab
-	brcc m4
+	out PORTA, temp2
+	ser start
 	rjmp main
 
 handle_pd2:
 	push temp
 	in temp, SREG
 	push temp
-	ldi temp, 0xFF
-	eor dir, temp
+	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
+	out PORTA, temp ; Записываем в PORTA регистр temp
 	pop temp
 	out SREG, temp
 	pop temp
@@ -94,8 +92,7 @@ handle_pd3:
 	push temp
 	in temp, SREG
 	push temp
-	ldi temp, 0xFF
-	eor inv, temp
+	clr start ; Очищаем регистр start
 	pop temp
 	out SREG, temp
 	pop temp
