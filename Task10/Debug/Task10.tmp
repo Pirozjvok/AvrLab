@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.51</VERSION>
+ <DEVICE>"ATmega2560"</DEVICE>
+ <WORKING_DIR>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug/Task10.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug/Task10.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug\Task10.map</FILE>
+  <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug\Task10.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>15</LINE></reset>
+  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>80</LINE></handle_pd2>
+  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>91</LINE></handle_pd3>
+  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>52</LINE></main>
+  <m1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>57</LINE></m1>
+  <m2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>59</LINE></m2>
+  <delay><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>101</LINE></delay>
+  <m4><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>75</LINE></m4>
+  <m3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>70</LINE></m3>
+  <d0><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>103</LINE></d0>
+  <d2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>105</LINE></d2>
+ </LABELS>
+</ASSEMBLER_INFO>
