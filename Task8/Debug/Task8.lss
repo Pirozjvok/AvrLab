@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Wed Nov 22 17:21:14 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm Sat Dec 02 03:26:10 2023
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
 C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
@@ -1887,17 +1887,18 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Includ
                  ; ***** END OF FILE ******************************************************
                   .def temp = r16
                   .def temp2 = r17
-                  .def dir = r18
-                  .def inv = r19
-                  .def rab = r20
+                  .def temp3 = r18
+                  .def dir = r19
+                  .def inv = r20
+                  .def rab = r21
                  
 000000 c004       rjmp reset
                  
                   .org INT0addr 
-000002 c025      	rjmp handle_pd2
+000002 c027      	rjmp handle_pd2
                  
                   .org INT1addr
-000004 c02c      	rjmp handle_pd3
+000004 c02e      	rjmp handle_pd3
                  
                   reset: ;Подпрограмма в которой мы инизицализируем все
                  
@@ -1936,66 +1937,73 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm(1): Includ
 000013 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
                  
                   main:
-000014 fd20      	sbrc dir, 0
-000015 c009      	rjmp m3
+000014 fd30      	sbrc dir, 0
+000015 c00a      	rjmp m3
                  
                  ; ------- Сдвиг вправо -----------
                  m1: 
-000016 e840      	ldi rab, 0b10000000
+000016 e850      	ldi rab, 0b10000000
                  m2:
 000017 ef0f      	ldi temp, 0xFF
-000018 fd30      	sbrc inv, 0
-000019 2704      	eor temp, rab
-00001a b942      	out PORTA, rab
-00001b d01e      	rcall delay
-00001c 9546      	lsr rab
-00001d f7c8      	brcc m2
-00001e cff5      	rjmp main
+000018 2f15      	mov temp2, rab
+000019 fd40      	sbrc inv, 0
+00001a 2710      	eor temp2, temp
+00001b b912      	out PORTA, temp2
+00001c d01f      	rcall delay
+00001d 9556      	lsr rab
+00001e f7c0      	brcc m2
+00001f cff4      	rjmp main
                  
                  	; ------- Сдвиг влево -----------
                  m3: 
-00001f e041      	ldi rab, 0b00000001
+000020 e051      	ldi rab, 0b00000001
                  m4:
-000020 ef0f      	ldi temp, 0xFF
-000021 fd30      	sbrc inv, 0
-000022 2704      	eor temp, rab
-000023 b942      	out PORTA, rab
-000024 d015      	rcall delay
-000025 9546      	lsr rab
-000026 f7c8      	brcc m4
-000027 cfec      	rjmp main
+000021 ef0f      	ldi temp, 0xFF
+000022 2f15      	mov temp2, rab
+000023 fd40      	sbrc inv, 0
+000024 2710      	eor temp2, temp
+000025 b912      	out PORTA, temp2
+000026 d015      	rcall delay
+000027 0f55      	lsl rab
+000028 f7c0      	brcc m4
+000029 cfea      	rjmp main
                  
                  handle_pd2:
-000028 930f      	push temp
-000029 b70f      	in temp, SREG
 00002a 930f      	push temp
-00002b ef0f      	ldi temp, 0xFF
-00002c 2720      	eor dir, temp
-00002d 910f      	pop temp
-00002e bf0f      	out SREG, temp
+00002b b70f      	in temp, SREG
+00002c 930f      	push temp
+00002d ef0f      	ldi temp, 0xFF
+00002e 2730      	eor dir, temp
 00002f 910f      	pop temp
-000030 9518      	reti ; Выходим из прерывания
+000030 bf0f      	out SREG, temp
+000031 910f      	pop temp
+000032 9518      	reti ; Выходим из прерывания
                  
                  handle_pd3:
-000031 930f      	push temp
-000032 b70f      	in temp, SREG
 000033 930f      	push temp
-000034 ef0f      	ldi temp, 0xFF
-000035 2730      	eor inv, temp
-000036 910f      	pop temp
-000037 bf0f      	out SREG, temp
+000034 b70f      	in temp, SREG
+000035 930f      	push temp
+000036 ef0f      	ldi temp, 0xFF
+000037 2740      	eor inv, temp
 000038 910f      	pop temp
-000039 9518      	reti ; Выходим из прерывания
+000039 bf0f      	out SREG, temp
+00003a 910f      	pop temp
+00003b 9518      	reti ; Выходим из прерывания
                  
                  delay: ; Задержка
-00003a ef0f      	ldi temp, 0xFF
+00003c e100      	ldi temp, 0x10
                  	d0:
-00003b ef1f      		ldi temp2, 0xFF
+00003d ef1f      		ldi temp2, 0xFF
+                 	d1: 
+00003e ef2f      		ldi temp3, 0xFF
                  	d2:
-00003c 951a      		dec temp2
-00003d f7f1      	brne d2
-00003e 950a      	dec temp
-00003f f7d9      	brne d0
+00003f 952a      		dec temp3
+000040 f7f1      		brne d2
+                 	d3: 
+000041 951a      		dec temp2
+000042 f7d9      		brne d1
+000043 950a      	dec temp
+000044 f7c1      	brne d0
 
 
 RESOURCE USE INFORMATION
@@ -2015,24 +2023,24 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  35 r17:   2 r18:   2 r19:   3 r20:   8 r21:   0 r22:   0 r23:   0 
+r16:  35 r17:   8 r18:   2 r19:   2 r20:   3 r21:   6 r22:   0 r23:   0 
 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
 x  :   0 y  :   0 z  :   0 
-Registers used: 5 out of 35 (14.3%)
+Registers used: 6 out of 35 (17.1%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   2 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   2 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   0 cpse  :   0 dec   :   3 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   4 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   2 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  12 
-lds   :   0 lpm   :   0 lsl   :   0 lsr   :   2 mov   :   0 movw  :   0 
+in    :   2 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  13 
+lds   :   0 lpm   :   0 lsl   :   1 lsr   :   1 mov   :   2 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
 ori   :   0 out   :  10 pop   :   4 push  :   4 rcall :   2 ret   :   1 
 reti  :   2 rjmp  :   6 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
@@ -2041,12 +2049,12 @@ sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   1
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
 st    :   0 std   :   0 sts   :   1 sub   :   0 subi  :   0 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 19 out of 116 (16.4%)
+Instructions used: 21 out of 116 (18.1%)
 
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000082    126      0    126  262144   0.0%
+[.cseg] 0x000000 0x00008c    136      0    136  262144   0.1%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

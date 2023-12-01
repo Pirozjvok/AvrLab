@@ -1,9 +1,10 @@
  .include "m2560def.inc"
  .def temp = r16
  .def temp2 = r17
- .def dir = r18
- .def inv = r19
- .def rab = r20
+ .def temp3 = r18
+ .def dir = r19
+ .def inv = r20
+ .def rab = r21
 
  rjmp reset
 
@@ -58,9 +59,10 @@ m1:
 	ldi rab, 0b10000000
 m2:
 	ldi temp, 0xFF
+	mov temp2, rab
 	sbrc inv, 0
-	eor temp, rab
-	out PORTA, rab
+	eor temp2, temp
+	out PORTA, temp2
 	rcall delay
 	lsr rab
 	brcc m2
@@ -71,9 +73,10 @@ m3:
 	ldi rab, 0b00000001
 m4:
 	ldi temp, 0xFF
+	mov temp2, rab
 	sbrc inv, 0
-	eor temp, rab
-	out PORTA, rab
+	eor temp2, temp
+	out PORTA, temp2
 	rcall delay
 	lsl rab
 	brcc m4
@@ -102,12 +105,17 @@ handle_pd3:
 	reti ; Выходим из прерывания
 
 delay: ; Задержка
-	ldi temp, 0xFF
+	ldi temp, 0x10
 	d0:
 		ldi temp2, 0xFF
+	d1: 
+		ldi temp3, 0xFF
 	d2:
+		dec temp3
+		brne d2
+	d3: 
 		dec temp2
-	brne d2
+		brne d1
 	dec temp
 	brne d0
 	ret

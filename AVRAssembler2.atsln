@@ -7,6 +7,10 @@ Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Task8", "Task8\Task8.asmpro
 EndProject
 Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Task9", "Task9\Task9.asmproj", "{859B5375-36E0-4A79-B8A8-FC156515A0A1}"
 EndProject
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "Task10", "Task10\Task10.asmproj", "{052AF1DA-2066-407C-B7F9-9D93F54ECAB1}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task7C", "Task7C\Task7C.cproj", "{F9EFEDDC-A998-4C29-8491-0613C28208EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -25,6 +29,14 @@ Global
 		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Debug|AVR.Build.0 = Debug|AVR
 		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Release|AVR.ActiveCfg = Release|AVR
 		{859B5375-36E0-4A79-B8A8-FC156515A0A1}.Release|AVR.Build.0 = Release|AVR
+		{052AF1DA-2066-407C-B7F9-9D93F54ECAB1}.Debug|AVR.ActiveCfg = Debug|AVR
+		{052AF1DA-2066-407C-B7F9-9D93F54ECAB1}.Debug|AVR.Build.0 = Debug|AVR
+		{052AF1DA-2066-407C-B7F9-9D93F54ECAB1}.Release|AVR.ActiveCfg = Release|AVR
+		{052AF1DA-2066-407C-B7F9-9D93F54ECAB1}.Release|AVR.Build.0 = Release|AVR
+		{F9EFEDDC-A998-4C29-8491-0613C28208EC}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F9EFEDDC-A998-4C29-8491-0613C28208EC}.Debug|AVR.Build.0 = Debug|AVR
+		{F9EFEDDC-A998-4C29-8491-0613C28208EC}.Release|AVR.ActiveCfg = Release|AVR
+		{F9EFEDDC-A998-4C29-8491-0613C28208EC}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

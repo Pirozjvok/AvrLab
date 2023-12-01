@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm Wed Nov 29 18:03:03 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm Sat Dec 02 03:26:10 2023
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
 C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm(1): Including file 'C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRAssembler\2.1.51.17\AvrAssembler/Include\m2560def.inc'
@@ -1887,16 +1887,17 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm(1): Incl
                  ; ***** END OF FILE ******************************************************
                   .def temp = r16
                   .def temp2 = r17
-                  .def rab = r18
-                  .def start = r19
+                  .def temp3 = r18
+                  .def rab = r19
+                  .def start = r20
                  
 000000 c004       rjmp reset
                  
                   .org INT0addr 
-000002 c026      	rjmp handle_pd2
+000002 c028      	rjmp handle_pd2
                  
                   .org INT1addr
-000004 c02d      	rjmp handle_pd3
+000004 c02f      	rjmp handle_pd3
                  
                   reset: ;Подпрограмма в которой мы инизицализируем все
                  
@@ -1929,70 +1930,77 @@ C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm(1): Incl
                  	
 00000f 2700      	clr temp ; Устанавливаем все биты регистра r16 на 0
 000010 b90a      	out DDRD, temp ; Устанавливаем все выводы порта D на вход, это для кнопок
+000011 b907      	out DDRC, temp ; Устанавливаем все выводы порта C на вход, это для переключателей
                  
-000011 ef3f      	ser start
-000012 ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
-000013 b90b      	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
-000014 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
+000012 ef4f      	ser start
+000013 ef0f      	ser temp ; Устанавливаем все биты регистра r16 на 1
+000014 b90b      	out PORTD, temp ; Включаем внутренние подтягивающие резисторы для кнопок
+000015 b901      	out DDRA, temp ; Устанавливаем все пины порта A на выход, это для светодиодов
+000016 b908      	out PORTC, temp ; Включаем внутренние подтягивающие резисторы для переключателей
                  
                   main:
-000015 fd30      	sbrc start, 0
-000016 cffe      	rjmp main
+000017 fd40      	sbrc start, 0
+000018 cffe      	rjmp main
                  
                  ; ------- Сдвиг вправо -----------
                  m1: 
-000017 e820      	ldi rab, 0b10000000
+000019 e830      	ldi rab, 0b10000000
                  m2:
-000018 ef0f      	ldi temp, 0xFF
-000019 b922      	out PORTA, rab
-00001a d01f      	rcall delay
-00001b 9526      	lsr rab
-00001c f7d8      	brcc m2
-00001d b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
-00001e 2711      	clr temp2 ; Очищаем temp2
-00001f 1703      	cp temp, start ; Сравниваем с 0, т.к start на данный момент обнулен
-000020 f029      	breq m4 ; Если 0 то переходим в m4
-000021 e011      	ldi temp2, 0x01 ; Загружаем еденицу в регистр temp2
+00001a ef0f      	ldi temp, 0xFF
+00001b b932      	out PORTA, rab
+00001c d01f      	rcall delay
+00001d 9536      	lsr rab
+00001e f7d8      	brcc m2
+00001f b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
+000020 2711      	clr temp2 ; Очищаем temp2
+000021 1704      	cp temp, start ; Сравниваем с 0, т.к start на данный момент обнулен
+000022 f029      	breq m4 ; Если 0 то переходим в m4
+000023 e011      	ldi temp2, 0x01 ; Загружаем еденицу в регистр temp2
                  m3:
-000022 0f11      	lsl temp2
-000023 950a      	dec temp
-000024 f7e9      	brne m3
-000025 951a      	dec temp2
+000024 0f11      	lsl temp2
+000025 950a      	dec temp
+000026 f7e9      	brne m3
+000027 951a      	dec temp2
                  m4:
-000026 b912      	out PORTA, temp2
-000027 ef3f      	ser start
-000028 cfec      	rjmp main
+000028 b912      	out PORTA, temp2
+000029 ef4f      	ser start
+00002a cfec      	rjmp main
                  
                  handle_pd2:
-000029 930f      	push temp
-00002a b70f      	in temp, SREG
 00002b 930f      	push temp
-00002c b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
-00002d b902      	out PORTA, temp ; Записываем в PORTA регистр temp
-00002e 910f      	pop temp
-00002f bf0f      	out SREG, temp
+00002c b70f      	in temp, SREG
+00002d 930f      	push temp
+00002e b106      	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
+00002f b902      	out PORTA, temp ; Записываем в PORTA регистр temp
 000030 910f      	pop temp
-000031 9518      	reti ; Выходим из прерывания
+000031 bf0f      	out SREG, temp
+000032 910f      	pop temp
+000033 9518      	reti ; Выходим из прерывания
                  
                  handle_pd3:
-000032 930f      	push temp
-000033 b70f      	in temp, SREG
 000034 930f      	push temp
-000035 2733      	clr start ; Очищаем регистр start
-000036 910f      	pop temp
-000037 bf0f      	out SREG, temp
+000035 b70f      	in temp, SREG
+000036 930f      	push temp
+000037 2744      	clr start ; Очищаем регистр start
 000038 910f      	pop temp
-000039 9518      	reti ; Выходим из прерывания
+000039 bf0f      	out SREG, temp
+00003a 910f      	pop temp
+00003b 9518      	reti ; Выходим из прерывания
                  
                  delay: ; Задержка
-00003a ef0f      	ldi temp, 0xFF
+00003c e100      	ldi temp, 0x10
                  	d0:
-00003b ef1f      		ldi temp2, 0xFF
+00003d ef1f      		ldi temp2, 0xFF
+                 	d1: 
+00003e ef2f      		ldi temp3, 0xFF
                  	d2:
-00003c 951a      		dec temp2
-00003d f7f1      	brne d2
-00003e 950a      	dec temp
-00003f f7d9      	brne d0
+00003f 952a      		dec temp3
+000040 f7f1      		brne d2
+                 	d3: 
+000041 951a      		dec temp2
+000042 f7d9      		brne d1
+000043 950a      	dec temp
+000044 f7c1      	brne d0
 
 
 RESOURCE USE INFORMATION
@@ -2012,26 +2020,26 @@ counted separately from r26..r31 here.
 "ATmega2560" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  33 r17:   7 r18:   3 r19:   5 r20:   0 r21:   0 r22:   0 r23:   0 
+r16:  35 r17:   7 r18:   2 r19:   3 r20:   5 r21:   0 r22:   0 r23:   0 
 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
 x  :   0 y  :   0 z  :   0 
-Registers used: 4 out of 35 (11.4%)
+Registers used: 5 out of 35 (14.3%)
 
 "ATmega2560" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   1 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   4 eicall:   0 eijmp :   0 elpm  :   0 
+cpi   :   0 cpse  :   0 dec   :   5 eicall:   0 eijmp :   0 elpm  :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 
-in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :   9 
+in    :   4 inc   :   0 jmp   :   0 ld    :   0 ldd   :   0 ldi   :  10 
 lds   :   0 lpm   :   0 lsl   :   1 lsr   :   1 mov   :   0 movw  :   0 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   0 
-ori   :   0 out   :  11 pop   :   4 push  :   4 rcall :   1 ret   :   1 
+ori   :   0 out   :  13 pop   :   4 push  :   4 rcall :   1 ret   :   1 
 reti  :   2 rjmp  :   5 rol   :   0 ror   :   0 sbc   :   0 sbci  :   0 
 sbi   :   0 sbic  :   0 sbis  :   0 sbiw  :   0 sbr   :   0 sbrc  :   1 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   3 
@@ -2043,7 +2051,7 @@ Instructions used: 21 out of 116 (18.1%)
 "ATmega2560" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000082    126      0    126  262144   0.0%
+[.cseg] 0x000000 0x00008c    136      0    136  262144   0.1%
 [.dseg] 0x000200 0x000200      0      0      0    8192   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
 

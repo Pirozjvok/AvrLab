@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm Wed Nov 29 18:03:03 2023
+AVRASM ver. 2.1.51  C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm Sat Dec 02 03:26:10 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1361,16 +1361,19 @@ EQU  UTXC3addr    00000070
 EQU  INT_VECTORS_SIZE 00000072
 DEF  temp         r16
 DEF  temp2        r17
-DEF  rab          r18
-DEF  start        r19
+DEF  temp3        r18
+DEF  rab          r19
+DEF  start        r20
 CSEG reset        00000005
-CSEG handle_pd2   00000029
-CSEG handle_pd3   00000032
-CSEG main         00000015
-CSEG m1           00000017
-CSEG m2           00000018
-CSEG delay        0000003a
-CSEG m4           00000026
-CSEG m3           00000022
-CSEG d0           0000003b
-CSEG d2           0000003c
+CSEG handle_pd2   0000002b
+CSEG handle_pd3   00000034
+CSEG main         00000017
+CSEG m1           00000019
+CSEG m2           0000001a
+CSEG delay        0000003c
+CSEG m4           00000028
+CSEG m3           00000024
+CSEG d0           0000003d
+CSEG d1           0000003e
+CSEG d2           0000003f
+CSEG d3           00000041

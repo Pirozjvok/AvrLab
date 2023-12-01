@@ -20,16 +20,18 @@
   <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Debug\Task10.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>15</LINE></reset>
-  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>80</LINE></handle_pd2>
-  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>91</LINE></handle_pd3>
-  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>52</LINE></main>
-  <m1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>57</LINE></m1>
-  <m2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>59</LINE></m2>
-  <delay><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>101</LINE></delay>
-  <m4><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>75</LINE></m4>
-  <m3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>70</LINE></m3>
-  <d0><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>103</LINE></d0>
-  <d2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>105</LINE></d2>
+  <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>16</LINE></reset>
+  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>83</LINE></handle_pd2>
+  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>94</LINE></handle_pd3>
+  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>55</LINE></main>
+  <m1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>60</LINE></m1>
+  <m2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>62</LINE></m2>
+  <delay><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>104</LINE></delay>
+  <m4><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>78</LINE></m4>
+  <m3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>73</LINE></m3>
+  <d0><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>106</LINE></d0>
+  <d1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>108</LINE></d1>
+  <d2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>110</LINE></d2>
+  <d3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task10\Task10.asm</FILE><LINE>113</LINE></d3>
  </LABELS>
 </ASSEMBLER_INFO>

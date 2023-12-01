@@ -62,7 +62,7 @@ handle_pd2:
 	in temp, PINC ; Записывыем в регистр r16 состояние входов порта C 
 	ldi temp2, 0x04
 	mul temp, temp2
-	out PORTA, temp
+	out PORTA, r0
 	pop temp2
 	pop temp
 	out SREG, temp

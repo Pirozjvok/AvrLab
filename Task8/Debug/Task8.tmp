@@ -20,16 +20,18 @@
   <FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Debug\Task8.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>16</LINE></reset>
-  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>82</LINE></handle_pd2>
-  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>93</LINE></handle_pd3>
-  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>52</LINE></main>
-  <m3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>70</LINE></m3>
-  <m1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>57</LINE></m1>
-  <m2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>59</LINE></m2>
-  <delay><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>104</LINE></delay>
-  <m4><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>72</LINE></m4>
-  <d0><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>106</LINE></d0>
-  <d2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>108</LINE></d2>
+  <reset><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>17</LINE></reset>
+  <handle_pd2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>85</LINE></handle_pd2>
+  <handle_pd3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>96</LINE></handle_pd3>
+  <main><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>53</LINE></main>
+  <m3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>72</LINE></m3>
+  <m1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>58</LINE></m1>
+  <m2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>60</LINE></m2>
+  <delay><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>107</LINE></delay>
+  <m4><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>74</LINE></m4>
+  <d0><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>109</LINE></d0>
+  <d1><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>111</LINE></d1>
+  <d2><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>113</LINE></d2>
+  <d3><FILE>C:\Users\AynurV\Documents\AVRStudio 5.1\AVRAssembler2\Task8\Task8.asm</FILE><LINE>116</LINE></d3>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,8 +1,9 @@
  .include "m2560def.inc"
  .def temp = r16
  .def temp2 = r17
- .def rab = r18
- .def start = r19
+ .def temp3 = r18
+ .def rab = r19
+ .def start = r20
 
  rjmp reset
 
@@ -101,12 +102,17 @@ handle_pd3:
 	reti ; Выходим из прерывания
 
 delay: ; Задержка
-	ldi temp, 0xFF
+	ldi temp, 0x10
 	d0:
 		ldi temp2, 0xFF
+	d1: 
+		ldi temp3, 0xFF
 	d2:
+		dec temp3
+		brne d2
+	d3: 
 		dec temp2
-	brne d2
+		brne d1
 	dec temp
 	brne d0
 	ret
